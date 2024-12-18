@@ -11,9 +11,9 @@ const loanService = require('../services/loanService');
 export async function fetchLoanBalances  (req, res) {
     try {
         const { CustomerNumber, PaybillAccount, ReferenceNumbers } = req.body;
-        if (!CustomerNumber || !PaybillAccount || !ReferenceNumbers) {
-            res.status(400).json({ Error: 'Missing required parameters' });
-            return;
+        const requiredParams = [CustomerNumber, PaybillAccount, ReferenceNumbers].every(Boolean);
+        if (!requiredParams) {
+            return res.status(400).json({ Error: 'Missing required parameters' });
         }
         const result = await loanService.getLoanBalances(CustomerNumber, PaybillAccount, ReferenceNumbers);
         res.status(200).json(result);

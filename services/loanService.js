@@ -66,8 +66,17 @@ export async function processSplitPayment(CustomerNumber, PaybillAccount, Refere
  * @returns {Promise<Object>} - A promise that resolves to the worker's message event data.
  * @throws {Error} - Throws an error if an error occurs in the worker thread.
  */
-function createWorker(workerPath, workerData) {
-  return new Promise((resolve, reject) => {
+const createWorker = (workerPath, workerData) =>
+  new Promise((resolve, reject) => {
+    if (!workerPath) {
+      reject(new Error("Worker path is required"));
+      return;
+    }
+    if (!workerData) {
+      reject(new Error("Worker data is required"));
+      return;
+    }
+
     const worker = new Worker(workerPath, { workerData });
     worker.on('message', resolve);
     worker.on('error', reject);
@@ -77,4 +86,4 @@ function createWorker(workerPath, workerData) {
       }
     });
   });
-}
+

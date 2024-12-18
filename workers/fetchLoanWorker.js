@@ -20,11 +20,7 @@ import {fetchLoanBalance} from "../data/loanDataAccess.js";
     if (!CustomerNumber || !PaybillAccount || !ReferenceNumbers) {
       throw new Error("Invalid worker data. CustomerNumber, PaybillAccount, and ReferenceNumbers are required.");
     }
-    const [result] = await Promise.all([fetchLoanBalance(
-        CustomerNumber,
-        PaybillAccount,
-        ReferenceNumbers
-    )]);
+    const result= await fetchLoanBalance(CustomerNumber, PaybillAccount, ReferenceNumbers);
     parentPort.postMessage({ status: "success", data: result });
   } catch (error) {
     parentPort.postMessage({ status: "error", message: error.message });

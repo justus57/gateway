@@ -41,6 +41,17 @@ loanQueue.process(async (job, done) => {
   }
 });
 
+/**
+ * Adds a loan processing job to the loanProcessing queue.
+ *
+ * @param {string} customerNumber - The unique identifier for the customer.
+ * @param {string} paybillAccount - The customer's paybill account number.
+ * @param {string} referenceNumber - The reference number for the loan.
+ *
+ * @returns {Promise<void>} - A promise that resolves when the job is successfully added to the queue.
+ * @throws {Error} - Throws an error if an error occurs while adding the job to the queue.
+ */
+
 export async  function AddLoanProcessingJob(customerNumber, paybillAccount, referenceNumber) {
 
     try {
